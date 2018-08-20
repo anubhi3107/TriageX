@@ -4,6 +4,7 @@
     <title>TriageX</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+
 </head>
 <body>
     <div class="navbar">
@@ -11,15 +12,15 @@
     </div>
 
     <div>
-      <form action="" method="post">
+      <form action="" method="post" id="urlForm">
           <label >URL</label>
-          <input type="text" id="url" name="Test_url" placeholder="Enter URL here...">
-          <label for="ruleset">Rule Set <span> (Click <a href="{{ url_for('ruleset') }}">here</a> for sample rule-set)</span></label>
-          <input type="text" id="rule" name="Rule_set" placeholder="Enter the Rule set URL">
+          <input type="text" id="url" name="Test_url" placeholder="https://www.example.com" pattern="https?://*.+" required>
+          <label>Rule Set <span> (Click <a href="{{ url_for('ruleset') }}">here</a> for sample rule-set)</span></label>
+          <input type="text" id="rule" name="Rule_set" placeholder="Enter the Rule set URL" >
           <input type="submit" value="Submit">
       </form>
     </div>
-
+    <script src="../static/js/main.js"><script/>
 </body>
 </html>
 

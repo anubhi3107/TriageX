@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+
+</head>
+<body>
+    <div class="navbar">
+      <a href="#"> TriageX </a>
+    </div>
+
+    <div>
+      <form action="{{ url_for('feedback') }}" method="post" id="updateForm">
+          <label >Run ID</label>
+          <input type="text" id="runId" name="run_id" placeholder="Enter run id here..." required>
+          <label>Test Name</label>
+          <input type="text" id="testName" name="test_id" placeholder="Enter the test id here..." required>
+          <label>Error Code</label>
+          <input type="text" id="errorCode" name="error_code" placeholder="Enter the error code/thread here..." required>
+          <label>Test Type</label>
+          <select required>
+              <option value="" selected disabled>Choose here</option>
+              <option value="ui">UI</option>
+              <option value="api">API</option>
+          </select>
+          <label>Type of Error</label>
+          <select required>
+              <option value="" selected disabled>Choose here</option>
+              <option value="framework">Framework</option>
+              <option value="product">Product</option>
+          </select>
+          <!--<input type="text" id="errorCode" name="error_code" placeholder="Enter the error code/thread here...">-->
+
+          <input type="submit" value="Submit">
+      </form>
+    </div>
+    <script src="../static/js/feedback.js"><script/>
+</body>
+</html>
