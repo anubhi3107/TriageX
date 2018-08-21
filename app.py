@@ -1,7 +1,7 @@
 from datetime import datetime
 from logging import DEBUG
-
-from flask import Flask, render_template, request, jsonify
+from jsonschema import validate
+from flask import Flask, render_template, request, jsonify, Response
 
 app = Flask(__name__)
 app.logger.setLevel(DEBUG)
@@ -9,24 +9,79 @@ app.logger.setLevel(DEBUG)
 test_data = []
 
 
-def store_data(url, ruleset):
-    test_data.append(dict(
-        test_url=url,
-        test_ruleset=ruleset,
-        date=datetime.utcnow()))
+def store_data(data):
+    testdata = {}
+    testdata.update({"test_url" : data["Test_url"]})
+    if data["Rule_set"]!="":
+        testdata.update({"rule_set": data["Rule_Set"]})
+    test_data.append(testdata)
+    app.logger.debug(test_data)
 
 
-@app.route('/')
-@app.route('/index', methods=['GET','POST'])
+def is_valid_json(json):
+    schema = """
+    {
+      "$schema": "http://json-schema.org/schema#",
+      "required": [
+        "Automation",
+        "Product"
+      ],
+      "type": "object",
+      "properties": {
+        "Product": {
+          "required": [
+            "Api",
+            "Ui"
+          ],
+          "type": "object",
+          "properties": {
+            "Api": {
+              "type": ["object", "array"]
+            },
+            "Ui": {
+              "type": ["object", "array"]
+            }
+          }
+        },
+        "Automation": {
+          "required": [
+            "Api",
+            "Ui"
+          ],
+          "type": "object",
+          "properties": {
+            "Api": {
+              "type": ["object", "array"]
+            },
+            "Ui": {
+              "type": ["object", "array"]
+            }
+          }
+        }
+      }
+    }
+    """
+    validate(json, schema)
+
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
-        url = request.form['Test_url']
-        ruleset = request.form['Rule_set']
-        store_data(url, ruleset)
-        app.logger.debug('stored url: ' + url)
-        app.logger.debug(request.data)
+        data =request.json
+        # TODO: Add rule set validation here
+        store_data(data)
+        app.logger.debug(data)
         return "Submitted"
     return render_template('index.html')
+
+
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    app.logger.debug(request.json);
+    return "Submitted"
+
+
 
 
 @app.route('/ruleset')
