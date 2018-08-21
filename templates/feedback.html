@@ -4,7 +4,8 @@
     <title>Update</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../static/css/main.css">
-
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
 <body>
     <div class="navbar">
@@ -12,7 +13,7 @@
     </div>
 
     <div>
-      <form action="{{ url_for('feedback') }}" method="post" id="updateForm">
+      <form method="POST" id="updateForm">
           <label >Run ID</label>
           <input type="text" id="runId" name="run_id" placeholder="Enter run id here..." required>
           <label>Test Name</label>
@@ -20,22 +21,21 @@
           <label>Error Code</label>
           <input type="text" id="errorCode" name="error_code" placeholder="Enter the error code/thread here..." required>
           <label>Test Type</label>
-          <select required>
+          <select name="testType" required>
               <option value="" selected disabled>Choose here</option>
               <option value="ui">UI</option>
               <option value="api">API</option>
           </select>
           <label>Type of Error</label>
-          <select required>
+          <select name="errorType" required>
               <option value="" selected disabled>Choose here</option>
               <option value="framework">Framework</option>
               <option value="product">Product</option>
           </select>
           <!--<input type="text" id="errorCode" name="error_code" placeholder="Enter the error code/thread here...">-->
-
           <input type="submit" value="Submit">
       </form>
     </div>
-    <script src="../static/js/feedback.js"><script/>
+    <script src="../static/js/feedback.js"></script>
 </body>
 </html>
