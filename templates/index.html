@@ -4,7 +4,8 @@
     <title>TriageX</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../static/css/main.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -12,7 +13,7 @@
     </div>
 
     <div>
-      <form action="" method="post" id="urlForm">
+      <form method="POST" id="urlForm">
           <label >URL</label>
           <input type="text" id="url" name="Test_url" placeholder="https://www.example.com" pattern="https?://*.+" required>
           <label>Rule Set <span> (Click <a href="{{ url_for('ruleset') }}">here</a> for sample rule-set)</span></label>
@@ -20,7 +21,7 @@
           <input type="submit" value="Submit">
       </form>
     </div>
-    <script src="../static/js/main.js"><script/>
+    <script src="../static/js/main.js"></script>
 </body>
 </html>
 
