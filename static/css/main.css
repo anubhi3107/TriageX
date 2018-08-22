@@ -8,6 +8,8 @@ body {
 }
 
 .navbar a {
+    font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
     float: left;
     color: #f2f2f2;
     text-align: center;
@@ -26,7 +28,8 @@ body {
     color: white;
 }
 
-.navbar-right {
+.navbar-right a{
+  font-family: 'Montserrat', sans-serif;
   float: right;
 }
 
