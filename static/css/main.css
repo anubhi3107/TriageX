@@ -26,6 +26,10 @@ body {
     color: white;
 }
 
+.navbar-right {
+  float: right;
+}
+
 label {
     padding-top: 10px;
     display: inline-block;

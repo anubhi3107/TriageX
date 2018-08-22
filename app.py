@@ -8,6 +8,7 @@ from tempfile import NamedTemporaryFile
 import shutil
 import csv
 
+FLAG=0
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 ALLOWED_EXTENSIONS = set(['json'])
 app = Flask(__name__)
@@ -76,6 +77,7 @@ def update_csv(data):
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    global FLAG
     if request.method == "POST":
         testdata = {}
         testdata.update({"test_url":request.form["test_url"]})
@@ -88,8 +90,9 @@ def index():
             app.logger.debug("Redirecting to upload ruleset")
             flash("Please upload ruleset first", "warning")
             return redirect(url_for('upload'))
-        return "Submitted"
-    return render_template('index.html')
+        FLAG = 1
+        return render_template('index.html', show_flag=FLAG)
+    return render_template('index.html', show_flag=FLAG)
 
 
 @app.route('/update', methods=['GET', 'POST'])
@@ -139,6 +142,7 @@ def page_not_found(e):
 @app.errorhandler(500)
 def server_error():
     return render_template('500.html'), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

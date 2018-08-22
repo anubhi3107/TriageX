@@ -8,6 +8,13 @@
 <body>
     <div class="navbar">
       <a href="#"> TriageX </a>
+        {% if show_flag %}
+             <div class="navbar-right">
+            <a href="{{ url_for('feedback') }}">Update Unknown Errors</a>
+            <a href="http://127.0.0.1:5601/goto/5fdc5c6c512c657cbc57dc919f05a52d" >Report</a>
+        </div>
+        {% endif %}
+
     </div>
 
     <div>
@@ -27,6 +34,7 @@
           </div>
           <input type="submit" value="Submit"></span>
       </form>
+
     </div>
     <script src="../static/js/main.js"></script>
 </body>
