@@ -4,6 +4,9 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 import json
 from flask import Flask, render_template, request,redirect, url_for, make_response, Response, flash
+from tempfile import NamedTemporaryFile
+import shutil
+import csv
 
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 ALLOWED_EXTENSIONS = set(['json'])
@@ -48,6 +51,28 @@ def update_ruleset(data):
     app.logger.debug(ruleset)
 
 
+def update_csv(data):
+    filename = 'train.csv'
+    tempfile = NamedTemporaryFile(mode='w', delete=False)
+    id = data["build_id"]
+    test_name = data["test_name"]
+    error_thread = data["errorThread"]
+    error_type = data["errorType"]
+    label = data["errorLabel"]
+    fields = ['ID','test_name','duration','status','errorstack','ErrorType','Label']
+
+    with open(filename, 'r') as csvfile, tempfile:
+        reader = csv.DictReader(csvfile, fieldnames=fields)
+        writer = csv.DictWriter(tempfile, fieldnames=fields)
+        for row in reader:
+            if row['ID']==id and row['test_name']==test_name:
+                row['errorstack'], row['ErrorType'], row['Label'] = error_thread, error_type, label
+            row = { 'ID': row['ID'], 'test_name': row['test_name'], 'duration': row['duration'], 'status': row['status'],
+                    'errorstack': row['errorstack'], 'ErrorType': row['ErrorType'], 'Label': row['Label']}
+            writer.writerow(row)
+    shutil.move(tempfile.name, filename)
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -82,7 +107,7 @@ def ruleset():
 def feedback():
     if request.method == "POST":
         update_ruleset(request.form)
-
+        update_csv(request.form)
         return "Submitted"
     return render_template('feedback.html')
 
