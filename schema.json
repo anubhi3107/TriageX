@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "required": [
+        "Automation",
+        "Product"
+    ],
+    "type": "object",
+    "properties": {
+        "Product": {
+            "required": [
+                "Api",
+                "Ui"
+            ],
+            "type": "object",
+            "properties": {
+                "Api": {
+                    "type": ["object", "array"]
+                },
+                "Ui": {
+                    "type": ["object", "array"]
+                }
+            }
+        },
+        "Automation": {
+            "required": [
+                "Api",
+                "Ui"
+            ],
+            "type": "object",
+            "properties": {
+                "Api": {
+                    "type": ["object", "array"]
+                },
+                "Ui": {
+                    "type": ["object", "array"]
+                }
+            }
+        }
+    }
+}

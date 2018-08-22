@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Ruleset</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+</head>
+<body>
+     <div class="navbar">
+      <a href="#"> TriageX </a>
+    </div>
+    <h1>Upload Rule set</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="file"><br>
+      <span> (Click <a href="{{ url_for('ruleset') }}">here</a> for sample rule-set)</span>
+      <input type="submit" value="Upload">
+
+    </form>
+</body>
+</html>

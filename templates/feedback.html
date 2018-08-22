@@ -4,8 +4,6 @@
     <title>Update</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../static/css/main.css">
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 </head>
 <body>
     <div class="navbar">
@@ -14,25 +12,35 @@
 
     <div>
       <form method="POST" id="updateForm">
-          <label >Run ID</label>
-          <input type="text" id="runId" name="run_id" placeholder="Enter run id here..." required>
+          <label >Build ID</label>
+          <input type="text" id="buildId" name="build_id" placeholder="Enter build id here..." required>
           <label>Test Name</label>
-          <input type="text" id="testName" name="test_id" placeholder="Enter the test id here..." required>
+          <input type="text" id="testName" name="test_name" placeholder="Enter the test id here..." required>
           <label>Error Code</label>
-          <input type="text" id="errorCode" name="error_code" placeholder="Enter the error code/thread here..." required>
-          <label>Test Type</label>
-          <select name="testType" required>
-              <option value="" selected disabled>Choose here</option>
-              <option value="ui">UI</option>
-              <option value="api">API</option>
+          <select name="errorCodeType" onchange="toggleVisibility(this)" required >
+              <option value="list" selected>Error thread</option>
+              <option value="dictionary">Error code and Error thread</option>
           </select>
+          <span id="ethread">
+             <label for="errorThread">Error Thread</label>
+            <input type="text" id="errorThread" placeholder="Enter error thread here..." name="errorThread" required>
+          </span>
+          <span id="ecode">
+            <label for="errorCode">Error Code</label>
+            <input type="text" id="errorCode" name="errorCode" placeholder="Enter the error code here..." >
+          </span>
           <label>Type of Error</label>
           <select name="errorType" required>
               <option value="" selected disabled>Choose here</option>
-              <option value="framework">Framework</option>
-              <option value="product">Product</option>
+              <option value="Ui">UI</option>
+              <option value="Api">API</option>
           </select>
-          <!--<input type="text" id="errorCode" name="error_code" placeholder="Enter the error code/thread here...">-->
+          <label>Error Label</label>
+          <select name="errorLabel" required>
+              <option value="" selected disabled>Choose here</option>
+              <option value="Automation">Framework</option>
+              <option value="Product">Product</option>
+          </select>
           <input type="submit" value="Submit">
       </form>
     </div>
