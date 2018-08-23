@@ -98,7 +98,7 @@ def index():
 @app.route('/update', methods=['GET', 'POST'])
 def update():
     app.logger.debug(request.json);
-    return redirect(url_for('Submitted.html'))
+    return redirect(url_for('submit'))
 
 
 @app.route('/ruleset')
@@ -111,7 +111,7 @@ def feedback():
     if request.method == "POST":
         update_ruleset(request.form)
         update_csv(request.form)
-        return redirect(url_for('Submitted.html'))
+        return redirect(url_for('submit'))
     return render_template('feedback.html')
 
 
@@ -136,6 +136,8 @@ def upload():
 @app.route('/submit')
 def submit():
     return render_template('Submitted.html')
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
