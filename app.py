@@ -85,20 +85,20 @@ def index():
         if len(is_auth) != 0:
             testdata.update({"username": request.form["username"], "password": request.form["password"]})
         app.logger.debug(testdata)
-
-        if not os.path.exists("Ruleset.json"):
+        app.logger.debug(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'],"Ruleset.json")))
+        if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'],"Ruleset.json")):
             app.logger.debug("Redirecting to upload ruleset")
             flash("Please upload ruleset first", "warning")
             return redirect(url_for('upload'))
         FLAG = 1
-        return render_template('index.html', show_flag=FLAG)
+        return redirect(url_for('submit'))
     return render_template('index.html', show_flag=FLAG)
 
 
 @app.route('/update', methods=['GET', 'POST'])
 def update():
     app.logger.debug(request.json);
-    return "Submitted"
+    return redirect(url_for('Submitted.html'))
 
 
 @app.route('/ruleset')
@@ -111,7 +111,7 @@ def feedback():
     if request.method == "POST":
         update_ruleset(request.form)
         update_csv(request.form)
-        return "Submitted"
+        return redirect(url_for('Submitted.html'))
     return render_template('feedback.html')
 
 
@@ -133,7 +133,9 @@ def upload():
     app.logger.debug("inside upload")
     return render_template('upload.html')
 
-
+@app.route('/submit')
+def submit():
+    return render_template('Submitted.html')
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
